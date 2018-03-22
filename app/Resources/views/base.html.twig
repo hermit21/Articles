@@ -4,10 +4,22 @@
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/base.css') }}" />
     </head>
     <body>
-        {% block body %}{% endblock %}
+        <div id="wrapper">
+            <div id="container">
+
+                {% block body %}{% endblock %}
+                {% if is_granted('ROLE_USER') %}
+                    <a href="{{ path('fos_user_security_logout') }}">Logout</a>
+                {% else %}
+                    <a href="{{ path('fos_user_security_login') }}">Login</a>
+                {% endif %}
+                {{ is_granted('USER_ROLE') }}
+            </div>
+        </div>
+
         {% block javascripts %}{% endblock %}
     </body>
 </html>
